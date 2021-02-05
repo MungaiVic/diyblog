@@ -1,1 +1,1 @@
-# DIY assignment for MDN Django module
+# DIY blog project from MDN Django Module
