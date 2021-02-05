@@ -22,14 +22,14 @@ class Blogpost(models.Model):
     """Model representing a blog post."""
     title = models.CharField(max_length=200, null=False, blank=False)
     #? Foreign key used because a blog post can only have one author(blogger), but authors can have multiple blog posts
-    author = models.ForeignKey(Blogger, on_delete=models.SET_NULL) # Foreign key is a 'one-to-many- field. Where is it declared, that is the 'one' side
+    author = models.ForeignKey(Blogger, on_delete=models.CASCADE) # Foreign key is a 'one-to-many- field. Where is it declared, that is the 'one' side
     post_date = models.DateTimeField(auto_now_add= True) # Date when it was posted
     description = models.TextField(max_length=3000, help_text="Type something amazing...") # Blog content.
     tag = models.ManyToManyField('Tag', help_text='Select a genre for this blog post')
 
     class Meta:
         ordering = ['post_date']
-        permissions =({"can_edit_blog_post": "Edit blog post"})
+        permissions =(("can_edit_blog_post", "Edit blog post"), )
 
     def __str__(self) -> str:
         return self.title + self.author + self.description
@@ -38,7 +38,7 @@ class Comment(models.Model):
     """Model representing a comment."""
     commenter = models.CharField(max_length=200) # Name of the commenter
     comment_date = models.DateField(auto_now_add=True, editable=False)
-    post = models.ForeignKey(Blogpost, on_delete=models.SET_NULL)
+    post = models.ForeignKey(Blogpost, on_delete=models.CASCADE)
     class Meta:
         ordering = ['comment_date']
 
