@@ -31,12 +31,13 @@ class Blogpost(models.Model):
         ordering = ['post_date']
         permissions =(("can_edit_blog_post", "Edit blog post"), )
 
-    def __str__(self) -> str:
-        return self.title + self.author + self.description
+    def __str__(self):
+        return self.title + self.description
 
 class Comment(models.Model):
     """Model representing a comment."""
     commenter = models.CharField(max_length=200) # Name of the commenter
+    reaction = models.CharField(max_length=200, default='This is great!' ,null=False, blank=False)
     comment_date = models.DateField(auto_now_add=True, editable=False)
     post = models.ForeignKey(Blogpost, on_delete=models.CASCADE)
     class Meta:
