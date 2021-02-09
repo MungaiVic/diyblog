@@ -2,5 +2,7 @@
 {% block content %}
 
 <h3>Welcome to the diy blog project. We look forward to building great things with you</h3>
-
+    {% for blogger in bloggers%}
+    <li>{{blogger.first_name}} {{blogger.last_name}}</li>
+    {% endfor %}
 {% endblock content %}
