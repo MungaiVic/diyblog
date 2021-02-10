@@ -6,6 +6,7 @@ class Blogger(models.Model):
     """Model representing a blogger."""
     first_name = models.CharField(max_length=100, null=False, blank=False)
     last_name = models.CharField(max_length=100, null=False, blank=False)
+    pseudonym = models.CharField(max_length=50, unique=True, null=True)
     bio = models.TextField(max_length=1000, null=False, blank=False, help_text="Some information about you would be great... ")
 
     class Meta:
@@ -32,11 +33,11 @@ class Blogpost(models.Model):
         permissions =(("can_edit_blog_post", "Edit blog post"), )
 
     def __str__(self):
-        return self.title + self.description
+        return self.title
 
 class Comment(models.Model):
     """Model representing a comment."""
-    commenter = models.CharField(max_length=200) # Name of the commenter
+    commenter = models.CharField(max_length=200) #! This needs to be a User object
     reaction = models.CharField(max_length=200, default='This is great!' ,null=False, blank=False)
     comment_date = models.DateField(auto_now_add=True, editable=False)
     post = models.ForeignKey(Blogpost, on_delete=models.CASCADE)

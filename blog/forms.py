@@ -1,0 +1,1 @@
+from django_registration.forms import RegistrationForm
