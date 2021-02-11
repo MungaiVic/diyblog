@@ -1,8 +1,22 @@
 {% extends 'base_generic.html' %}
 {% block content %}
 <h1>{{blogpost.title}}</h1>
-<h6>{{blogpost.post_date}}</h6>
-<h6><a href="{% url 'blogger-detail' blogpost.author.pk %}">{{blogpost.author.pseudonym}}</a></h6>
+<h6><strong>Post Date: </strong> {{blogpost.post_date}}</h6>
+<h6><strong>Author: </strong><a href="{% url 'blogger-detail' blogpost.author.pk %}">{{blogpost.author.pseudonym}}</a></h6>
 <hr>
+<strong>Description: </strong>
 <p>{{blogpost.description}}</p>
+<hr>
+<div style="margin-left: 20px;margin-top: 20px;">
+    <h4>Comments</h4>
+    {% for comment in blogpost.comment_set.all %}
+        <p>{{comment}} - {{comment.reaction}}</p>
+        <hr>
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <p><a href="{% url 'comment-create' %}">Add new comment</a></p>
+    {% else %}
+        <p><a href="{% url 'login' %}?next={{request.path}}">Login</a> to add comment</p>
+    {% endif %}
+</div>
 {% endblock content %}
