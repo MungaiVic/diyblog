@@ -1,6 +1,8 @@
 {% extends 'base_generic.html' %}
 {% block content %}
-<h3>{{blogpost.title}}</h3>
+<h1>{{blogpost.title}}</h1>
+<h6>{{blogpost.post_date}}</h6>
+<h6><a href="{% url 'blogger-detail' blogpost.author.pk %}">{{blogpost.author.pseudonym}}</a></h6>
 <hr>
 <p>{{blogpost.description}}</p>
 {% endblock content %}
