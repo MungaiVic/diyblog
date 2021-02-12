@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from .models import Blogger, Blogpost, Comment
 from django.views import generic
 from django.views.generic.edit import  CreateView, DeleteView, ModelFormMixin
+from django.urls import reverse_lazy, reverse
+
 # Create your views here.
 def index(request):
     bloggers = Blogger.objects.all()
@@ -31,3 +33,11 @@ class BlogDetailView(generic.DetailView):
 
 class CommentCreateView(generic.CreateView):
     model = Comment
+    fields = ['commenter', 'post','reaction']
+    # success_url = reverse("blog-detail")
+
+    def get_context_data(self, **kwargs):
+        context = super(CommentCreateView, self).get_context_data(**kwargs)
+        context["blogpost"] = get_object_or_404(Blogpost, pk = self.kwargs['pk'])
+        return context
+

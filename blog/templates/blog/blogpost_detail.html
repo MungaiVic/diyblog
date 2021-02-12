@@ -5,4 +5,10 @@
 <h6><a href="{% url 'blogger-detail' blogpost.author.pk %}">{{blogpost.author.pseudonym}}</a></h6>
 <hr>
 <p>{{blogpost.description}}</p>
+
+{% if user.is_authenticated %}
+<a href="{% url 'create' blogpost.id %}">Add a comment</a>
+{% else %}
+<p>a href="{% url 'login' %}">login</a> to make a comment </p>
+{% endif %}
 {% endblock content %}
