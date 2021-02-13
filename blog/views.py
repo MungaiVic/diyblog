@@ -35,13 +35,11 @@ class BlogDetailView(generic.DetailView):
 class CommentCreateView(generic.CreateView):
     model = Comment
     fields = ['commenter', 'post','reaction']
-    success_url = reverse_lazy("blog-detail")
-
+    
     def get_context_data(self, **kwargs):
         context = super(CommentCreateView, self).get_context_data(**kwargs)
         context["blogpost"] = get_object_or_404(Blogpost, pk = self.kwargs['pk'])
         return context
 
     def get_success_url(self, **kwargs):
-        context = super(CommentCreateView, self).get_context_data(**kwargs)
-        return reverse(context(pk=self.kwargs['pk']))
+        return reverse("blog-detail",kwargs=self.kwargs)
