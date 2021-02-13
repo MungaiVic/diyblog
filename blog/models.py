@@ -48,8 +48,8 @@ class Comment(models.Model):
         """String for the commenter and the comment date"""
         return f'{self.commenter} ({self.comment_date})'
 
-    def get_absolute_url(self): # new
-        return reverse('blogs')
+    # def get_absolute_url(self): # new
+    #     return reverse('blogs')
 
 class Tag(models.Model):
     """Model representing a blog post genre."""
