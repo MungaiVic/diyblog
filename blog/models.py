@@ -40,7 +40,8 @@ class Comment(models.Model):
     commenter = models.CharField(max_length=200) #! This needs to be a User object
     reaction = models.CharField(max_length=200, default='This is great!' ,null=False, blank=False)
     comment_date = models.DateField(auto_now_add=True, editable=False)
-    post = models.ForeignKey(Blogpost, on_delete=models.CASCADE)
+    post = models.ForeignKey(Blogpost, on_delete=models.CASCADE) #? When using PostgreSQL, a post_id column will be created by default.
+                                                                 #? Make sure it is passed when saving the comment object in the DB
     class Meta:
         ordering = ['comment_date']
 
